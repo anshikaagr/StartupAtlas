@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.title("🏠 Overview")
 
@@ -26,3 +27,44 @@ with col3:
 with col4:
     st.metric("🏭 Markets", total_markets)
 
+st.markdown("---")
+
+col1, col2 = st.columns(2)
+
+with col1:
+
+    st.subheader("Startup Status Distribution")
+
+    fig = px.pie(
+        status_df,
+        names="status",
+        values="count",
+        hole=0.5
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+with col2:
+
+    st.subheader("Top 10 Markets")
+
+    top_markets = (
+        market_df
+        .sort_values("startups", ascending=False)
+        .head(10)
+    )
+
+    fig2 = px.bar(
+        top_markets,
+        x="startups",
+        y="market",
+        orientation="h"
+    )
+
+    st.plotly_chart(
+        fig2,
+        use_container_width=True
+    )
