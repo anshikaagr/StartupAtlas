@@ -68,3 +68,49 @@ with col2:
         fig2,
         use_container_width=True
     )
+
+st.markdown("---")
+
+col3, col4 = st.columns(2)
+
+with col3:
+
+    st.subheader("Funding Trend Over Time")
+
+    funding_df = pd.read_csv(
+        "data/processed/funding_summary.csv"
+    )
+
+    fig3 = px.line(
+        funding_df,
+        x="founded_year",
+        y="total_funding",
+        markers=True
+    )
+
+    st.plotly_chart(
+        fig3,
+        use_container_width=True
+    )
+
+with col4:
+
+    st.subheader("Top 10 Countries")
+
+    top_countries = (
+        country_df
+        .sort_values("startups", ascending=False)
+        .head(10)
+    )
+
+    fig4 = px.bar(
+        top_countries,
+        x="startups",
+        y="country_code",
+        orientation="h"
+    )
+
+    st.plotly_chart(
+        fig4,
+        use_container_width=True
+    )
