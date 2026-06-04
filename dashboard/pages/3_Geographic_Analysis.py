@@ -84,3 +84,20 @@ st.plotly_chart(
     fig3,
     use_container_width=True
 )
+
+st.markdown("---")
+
+st.subheader("Global Startup Funding Map")
+
+fig = px.choropleth(
+    country_df,
+    locations="country_code",
+    color="total_funding",
+    hover_name="country_code",
+    color_continuous_scale="Blues"
+)
+
+st.plotly_chart(
+    fig,
+    use_container_width=True
+)
