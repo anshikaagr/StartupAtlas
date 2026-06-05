@@ -41,3 +41,41 @@ fig = px.histogram(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+
+st.markdown("---")
+
+st.subheader("Top Countries by DNA Score")
+
+top_dna = (
+    country_df
+    .sort_values("dna_score", ascending=False)
+    .head(10)
+)
+
+st.dataframe(
+    top_dna[
+        [
+            "country_code",
+            "startups",
+            "total_funding",
+            "dna_score"
+        ]
+    ],
+    use_container_width=True
+)
+
+
+st.subheader("Top DNA Score Countries")
+
+fig2 = px.bar(
+    top_dna,
+    x="country_code",
+    y="dna_score"
+)
+
+st.plotly_chart(
+    fig2,
+    use_container_width=True
+)
+
