@@ -45,8 +45,6 @@ st.plotly_chart(
     use_container_width=True
 )
 
-st.write(funding_df.columns)
-
 st.markdown("---")
 
 st.subheader("Funding Distribution by Year")
