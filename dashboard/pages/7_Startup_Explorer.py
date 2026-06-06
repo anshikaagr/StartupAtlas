@@ -13,7 +13,7 @@ selected_country = st.selectbox(
 country_data = country_df[country_df["country_code"] == selected_country]
 
 st.markdown("---")
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
@@ -36,4 +36,20 @@ with col3:
     st.metric(
         "📈 Avg Funding",
         f"${avg_funding/1e6:.2f}M"
+    )
+
+    
+country_df["avg_funding"] = country_df["avg_funding"].fillna(0)
+country_df["dna_score"] = (
+    country_df["startups"].rank(pct=True) * 40 +
+    country_df["total_funding"].rank(pct=True) * 40 +
+    country_df["avg_funding"].rank(pct=True) * 20
+)
+
+country_data = country_df[country_df["country_code"] == selected_country]
+
+with col4:
+    st.metric(
+        "🧬 DNA Score",
+        f"{country_data['dna_score'].iloc[0]:.1f}"
     )
