@@ -38,7 +38,7 @@ with col3:
         f"${avg_funding/1e6:.2f}M"
     )
 
-    
+
 country_df["avg_funding"] = country_df["avg_funding"].fillna(0)
 country_df["dna_score"] = (
     country_df["startups"].rank(pct=True) * 40 +
@@ -53,3 +53,31 @@ with col4:
         "🧬 DNA Score",
         f"{country_data['dna_score'].iloc[0]:.1f}"
     )
+
+st.markdown("---")
+country_rank = (
+    country_df["dna_score"].rank(ascending=False)
+)
+
+rank = int(country_rank[country_df["country_code"] == selected_country].iloc[0])
+
+st.subheader("🏆 Country Ranking")
+st.write(
+    f"**{selected_country}** ranks **#{rank}** out of **{len(country_df)} countries** based on Startup DNA Score."
+)
+
+
+st.markdown("---")
+st.subheader("🌍 Top 10 Countries by DNA Score")
+top10 = (country_df.sort_values("dna_score", ascending=False).head(10))
+fig = px.bar(
+    top10,
+    x="country_code",
+    y="dna_score",
+    title="Top 10 Countries by DNA Score"
+)
+
+st.plotly_chart(
+    fig,
+    use_container_width=True
+)
