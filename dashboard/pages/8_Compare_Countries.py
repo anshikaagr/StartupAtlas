@@ -89,3 +89,77 @@ with col2:
         "🧬 DNA Score",
         f"{data2['dna_score'].iloc[0]:.1f}"
     )
+
+st.markdown("---")
+st.subheader("📊 Country Comparison")
+
+compare_df = pd.DataFrame({
+    "Metric": [
+        "Startups",
+        "Total Funding",
+        "Avg Funding",
+        "DNA Score"
+    ],
+    country1: [
+        data1["startups"].iloc[0],
+        data1["total_funding"].iloc[0],
+        data1["avg_funding"].iloc[0],
+        data1["dna_score"].iloc[0]
+    ],
+    country2: [
+        data2["startups"].iloc[0],
+        data2["total_funding"].iloc[0],
+        data2["avg_funding"].iloc[0],
+        data2["dna_score"].iloc[0]
+    ]
+})
+
+compare_long = compare_df.melt(
+    id_vars="Metric",
+    var_name="Country",
+    value_name="Value"
+)
+
+fig = px.bar(
+    compare_long,
+    x="Metric",
+    y="Value",
+    color="Country",
+    barmode="group"
+)
+
+st.plotly_chart(
+    fig,
+    use_container_width=True
+)
+
+st.markdown("---")
+st.subheader("🧬 DNA Score Comparison")
+
+dna_df = pd.DataFrame({
+    "Country": [country1, country2],
+    "DNA Score": [
+        data1["dna_score"].iloc[0],
+        data2["dna_score"].iloc[0]
+    ]
+})
+
+fig2 = px.bar(
+    dna_df,
+    x="Country",
+    y="DNA Score",
+    text="DNA Score"
+)
+
+st.plotly_chart(
+    fig2,
+    use_container_width=True
+)
+
+
+winner = (
+    country1
+    if data1["dna_score"].iloc[0] >data2["dna_score"].iloc[0]
+    else country2
+)
+st.success(f"🏆 {winner} has the stronger startup ecosystem based on DNA Score.")
