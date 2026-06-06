@@ -163,3 +163,12 @@ winner = (
     else country2
 )
 st.success(f"🏆 {winner} has the stronger startup ecosystem based on DNA Score.")
+
+startup_winner = country1 if data1["startups"].iloc[0] > data2["startups"].iloc[0] else country2
+funding_winner = country1 if data1["total_funding"].iloc[0] > data2["total_funding"].iloc[0] else country2
+st.markdown("---")
+st.subheader("📌 Key Insights")
+st.info(f"🚀 {startup_winner} has more startups.")
+st.info(f"💰 {funding_winner} attracts more funding.")
+st.success(f"🧬 {winner} has the stronger Startup DNA Score.")
+
