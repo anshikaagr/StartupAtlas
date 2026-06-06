@@ -114,3 +114,11 @@ with col4:
         fig4,
         use_container_width=True
     )
+
+st.markdown("---")
+st.subheader("📌 Key Insights")
+
+st.info("🌍 USA leads the startup ecosystem in funding and startup count.")
+st.info("🏭 Software-related markets dominate the startup landscape.")
+st.info("📈 Startup funding experienced significant growth over time.")
+st.info("🧬 Countries with strong funding and startup activity achieve the highest DNA Scores.")
