@@ -74,7 +74,8 @@ fig = px.bar(
     top10,
     x="country_code",
     y="dna_score",
-    title="Top 10 Countries by DNA Score"
+    title="Top 10 Countries by DNA Score",
+    orientation="h"
 )
 
 st.plotly_chart(
