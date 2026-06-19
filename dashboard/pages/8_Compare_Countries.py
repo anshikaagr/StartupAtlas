@@ -7,6 +7,8 @@ st.write("Compare startup ecosystems across countries.")
 
 country_df = pd.read_csv("data/processed/country_summary.csv")
 
+
+
 country_df["avg_funding"] = (country_df["avg_funding"].fillna(0))
 
 country_df["dna_score"] = (
@@ -18,17 +20,34 @@ country_df["dna_score"] = (
 col1, col2 = st.columns(2)
 
 with col1:
+    country_options = sorted(
+        country_df["country_code"].unique()
+    )
+
+    default_index = 0
+
+    selected_filter = st.session_state.get(
+    "country_filter",
+    "All Countries"
+    )
+
+    if selected_filter in country_options:
+        default_index = country_options.index(
+            selected_filter
+    )
+
     country1 = st.selectbox(
         "Country 1",
-        sorted(country_df["country_code"].unique()),
-        index=0
+        country_options,
+        index=default_index
     )
 
 with col2:
     country2 = st.selectbox(
         "Country 2",
         sorted(country_df["country_code"].unique()),
-        index=1
+        index=1,
+        key="compare_country2"
     )
 
 data1 = country_df[

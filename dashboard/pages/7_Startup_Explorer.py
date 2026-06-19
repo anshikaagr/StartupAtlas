@@ -2,14 +2,34 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("🔍 Startup Explorer")
 st.write("Explore startup ecosystems by country.")
 
 country_df = pd.read_csv("data/processed/country_summary.csv")
 
-selected_country = st.selectbox(
-    "Select Country",sorted(country_df["country_code"].unique())
+country_options = sorted(
+    country_df["country_code"].unique()
 )
+
+default_index = 0
+
+selected_filter = st.session_state.get(
+    "country_filter",
+    "All Countries"
+)
+
+if selected_filter in country_options:
+    default_index = country_options.index(
+        selected_filter
+    )
+
+selected_country = st.selectbox(
+    "Select Country",
+    country_options,
+    index=default_index
+)
+
 country_data = country_df[country_df["country_code"] == selected_country]
 
 st.markdown("---")
