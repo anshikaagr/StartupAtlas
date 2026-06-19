@@ -5,6 +5,17 @@ st.set_page_config(
     page_icon="🚀",
     layout="wide"
 )
+st.sidebar.markdown("""
+<div style="
+padding:5px;
+border-radius:12px;
+background:#1F2937;
+text-align:center;
+margin-bottom:10px;">
+<h2>🚀 StartupAtlas</h2>
+<p>Startup Intelligence Platform</p>
+</div>
+""", unsafe_allow_html=True)
 
 st.title("🚀 StartupAtlas")
 st.caption("Data-driven insights into the global startup ecosystem.")
@@ -15,6 +26,17 @@ if "country_filter" not in st.session_state:
 if "market_filter" not in st.session_state:
     st.session_state["market_filter"] = "All Markets"
 
+st.markdown("""
+<style>
+[data-testid="stSidebar"] {
+    background: #111827;
+}
+
+[data-testid="stSidebar"] * {
+    color: white;
+}
+</style>
+""", unsafe_allow_html=True)
 
 import pandas as pd
 
@@ -38,7 +60,3 @@ st.session_state["market_filter"] = st.sidebar.selectbox(
     "Market",
     markets
 )
-
-st.session_state
-st.session_state["country_filter"]
-st.session_state["market_filter"]

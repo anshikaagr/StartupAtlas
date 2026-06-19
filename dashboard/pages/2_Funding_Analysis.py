@@ -9,6 +9,17 @@ country_df = pd.read_csv("data/processed/country_summary.csv")
 market_df = pd.read_csv("data/processed/market_summary.csv")
 funding_df = pd.read_csv("data/processed/funding_summary.csv")
 
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 total_funding = market_df["total_funding"].sum()
 
 avg_funding = market_df["avg_funding"].mean()
@@ -29,6 +40,12 @@ with col2:
 with col3:
     st.metric("🏆 Top Market", top_market)
 
+st.info(
+    "💰 Global startup funding exceeds $625B. "
+    "🏆 Biotechnology leads all markets in total funding. "
+    "📈 Average funding per startup is $14M."
+)
+
 st.markdown("---")
 
 st.subheader("Funding Trend Over Time")
@@ -39,12 +56,48 @@ fig = px.line(
     y="total_funding",
     markers=True
 )
+fig.update_traces(line_width=3)
+fig.update_layout(
+    height=450,
+    xaxis_title="Year",
+    yaxis_title="Funding (USD)",
+    hovermode="x unified"
+)
 
 st.plotly_chart(
     fig,
     use_container_width=True
 )
 
+st.divider()
+
+st.subheader("🏆 Top 10 Markets by Funding")
+
+top_funding_markets = (
+    market_df
+    .sort_values("total_funding", ascending=False)
+    .head(10)
+)
+
+fig2 = px.bar(
+    top_funding_markets,
+    x="total_funding",
+    y="market",
+    orientation="h",
+    color="total_funding",
+    color_continuous_scale="Blues"
+)
+
+fig2.update_layout(
+    height=450,
+    yaxis_title="Market",
+    xaxis_title="Total Funding (USD)"
+)
+
+st.plotly_chart(
+    fig2,
+    use_container_width=True
+)
 st.markdown("---")
 
 col1, col2 = st.columns(2)

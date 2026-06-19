@@ -3,10 +3,24 @@ import pandas as pd
 import plotly.express as px
 
 st.title("🏠 Overview")
+st.caption(
+    "Explore global startup trends, funding activity, market performance, and ecosystem strength."
+)
 
 country_df = pd.read_csv("data/processed/country_summary.csv")
 market_df = pd.read_csv("data/processed/market_summary.csv")
 status_df = pd.read_csv("data/processed/status_summary.csv")
+
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2.2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 total_startups = country_df["startups"].sum()
 total_funding = country_df["total_funding"].sum()
@@ -33,7 +47,7 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-    st.subheader("Startup Status Distribution")
+    st.subheader("📊 Startup Status Distribution")
 
     fig = px.pie(
         status_df,
@@ -41,7 +55,10 @@ with col1:
         values="count",
         hole=0.5
     )
-
+    fig.update_layout(
+        height=350,
+        margin=dict(l=10, r=10, t=20, b=10)
+    )
     st.plotly_chart(
         fig,
         use_container_width=True
@@ -49,7 +66,7 @@ with col1:
 
 with col2:
 
-    st.subheader("Top 10 Markets")
+    st.subheader("🏭 Top 10 Markets")
 
     top_markets = (
         market_df
@@ -63,19 +80,22 @@ with col2:
         y="market",
         orientation="h"
     )
-
+    fig2.update_layout(
+        height=350,
+        margin=dict(l=10, r=10, t=20, b=10)
+    )
     st.plotly_chart(
         fig2,
         use_container_width=True
     )
 
-st.markdown("---")
+st.divider()
 
 col3, col4 = st.columns(2)
 
 with col3:
 
-    st.subheader("Funding Trend Over Time")
+    st.subheader("📈 Funding Trend Over Time")
 
     funding_df = pd.read_csv(
         "data/processed/funding_summary.csv"
@@ -87,6 +107,10 @@ with col3:
         y="total_funding",
         markers=True
     )
+    fig3.update_layout(
+        height=350,
+        margin=dict(l=10, r=10, t=20, b=10)
+    )
 
     st.plotly_chart(
         fig3,
@@ -95,7 +119,7 @@ with col3:
 
 with col4:
 
-    st.subheader("Top 10 Countries")
+    st.subheader("🌍 Top 10 Countries")
 
     top_countries = (
         country_df
@@ -109,7 +133,10 @@ with col4:
         y="country_code",
         orientation="h"
     )
-
+    fig4.update_layout(
+        height=350,
+        margin=dict(l=10, r=10, t=20, b=10)
+    )
     st.plotly_chart(
         fig4,
         use_container_width=True

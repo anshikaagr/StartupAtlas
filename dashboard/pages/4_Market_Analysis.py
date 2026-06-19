@@ -6,6 +6,16 @@ st.title("🏭 Market Analysis")
 st.write("Explore startup activity and funding across markets.")
 
 market_df = pd.read_csv("data/processed/market_summary.csv")
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
 total_markets = market_df["market"].nunique()
 
 avg_funding = market_df["avg_funding"].mean()

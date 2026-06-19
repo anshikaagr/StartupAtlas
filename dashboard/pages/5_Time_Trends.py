@@ -6,6 +6,16 @@ st.title("📈 Time Trends Analysis")
 st.write("Explore startup growth and funding trends over time.")
 
 funding_df = pd.read_csv("data/processed/funding_summary.csv")
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 peak_year = (
     funding_df.sort_values("total_funding", ascending=False).iloc[0]["founded_year"]

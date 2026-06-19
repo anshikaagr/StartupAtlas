@@ -6,6 +6,17 @@ st.title("🧬 Startup DNA Score")
 st.write("Measure startup ecosystem strength through a custom scoring model.")
 country_df = pd.read_csv("data/processed/country_summary.csv")
 
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 country_df["dna_score"] = (
     country_df["startups"].rank(pct=True) * 40 +
     country_df["total_funding"].rank(pct=True) * 40 +

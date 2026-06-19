@@ -7,7 +7,16 @@ st.write("Compare startup ecosystems across countries.")
 
 country_df = pd.read_csv("data/processed/country_summary.csv")
 
-
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 country_df["avg_funding"] = (country_df["avg_funding"].fillna(0))
 

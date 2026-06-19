@@ -5,6 +5,16 @@ import plotly.express as px
 st.title("🌍 Geographic Analysis")
 st.write("Explore startup distribution and funding across countries.")
 country_df = pd.read_csv("data/processed/country_summary.csv")
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 total_countries = country_df["country_code"].nunique()
 
