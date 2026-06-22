@@ -52,7 +52,8 @@ with col1:
     fig = px.bar(top_countries,
         x="startups",
         y="country_code",
-        orientation="h")
+        orientation="h",
+        color_discrete_sequence=["#8B5CF6"])
 
     st.plotly_chart(fig,use_container_width=True)
 
@@ -70,7 +71,8 @@ with col2:
         top_funded,
         x="total_funding",
         y="country_code",
-        orientation="h"
+        orientation="h",
+        color_discrete_sequence=["#8B5CF6"]
     )
 
     st.plotly_chart(
@@ -80,34 +82,124 @@ with col2:
 
 st.markdown("---")
 
-st.subheader("Country Funding Distribution")
+st.subheader("🚀 Top 15 Countries by Startups")
 
-fig3 = px.scatter(
-    country_df,
+top15 = (
+    country_df
+    .sort_values("startups", ascending=False)
+    .head(15)
+)
+
+fig3 = px.bar(
+    top15,
     x="startups",
-    y="total_funding",
-    size="startups",
-    hover_name="country_code"
+    y="country_code",
+    orientation="h",
+    color="startups",
+    color_continuous_scale=[
+        "#8B5CF6",
+        "#6940CA",
+        "#421A9F"
+    ]
 )
 
-st.plotly_chart(
-    fig3,
-    use_container_width=True
+fig3.update_layout(
+    height=500,
+    yaxis_title="Country",
+    xaxis_title="Number of Startups",
+    yaxis=dict(categoryorder="total ascending")
 )
+
+st.plotly_chart(fig3, use_container_width=True)
 
 st.markdown("---")
 
-st.subheader("Global Startup Funding Map")
+region_map = {
+    # North America
+    "USA": "North America",
+    "CAN": "North America",
 
-fig = px.choropleth(
-    country_df,
-    locations="country_code",
-    color="total_funding",
-    hover_name="country_code",
-    color_continuous_scale="Blues"
+    # South America
+    "BRA": "South America",
+    "ARG": "South America",
+    "CHL": "South America",
+
+    # Europe
+    "GBR": "Europe",
+    "FRA": "Europe",
+    "DEU": "Europe",
+    "ESP": "Europe",
+    "NLD": "Europe",
+    "SWE": "Europe",
+    "CHE": "Europe",
+    "RUS": "Europe",
+
+    # East Asia
+    "CHN": "East Asia",
+    "JPN": "East Asia",
+    "KOR": "East Asia",
+    "TWN": "East Asia",
+
+    # South Asia
+    "IND": "South Asia",
+    "PAK": "South Asia",
+    "BGD": "South Asia",
+
+    # Middle East
+    "ISR": "Middle East",
+    "SAU": "Middle East",
+    "ARE": "Middle East",
+
+    # Oceania
+    "AUS": "Oceania",
+    "NZL": "Oceania",
+
+    # Africa
+    "ZAF": "Africa",
+    "EGY": "Africa",
+    "NGA": "Africa"
+}
+
+country_df["region"] = (
+    country_df["country_code"]
+    .map(region_map)
+    .fillna("Other")
 )
 
-st.plotly_chart(
-    fig,
-    use_container_width=True
+region_df = (
+    country_df
+    .groupby("region")["startups"]
+    .sum()
+    .reset_index()
 )
+
+fig4 = px.treemap(
+    region_df,
+    path=["region"],
+    values="startups",
+    color="startups",
+    color_continuous_scale=[
+        "#8B5CF6",  # Purple
+        "#3B82F6",  # Blue
+        "#06B6D4",  # Cyan
+        "#10B981",  # Emerald
+        "#F59E0B",  # Amber
+        "#EF4444",  # Red
+        "#EC4899",  # Pink
+        "#6366F1" 
+    ]
+)
+
+fig4.update_layout(
+    height=500,
+    margin=dict(t=20, l=0, r=0, b=0)
+)
+
+st.plotly_chart(fig4, use_container_width=True)
+
+st.markdown("---")
+st.subheader("📌 Geographic Insights")
+
+st.info("🇺🇸 USA dominates both startup count and total funding.")
+st.info("🌍 Startup activity is concentrated in North America, Europe, and Asia.")
+st.info("💰 Funding distribution varies significantly across countries.")

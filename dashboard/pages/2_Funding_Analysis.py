@@ -40,11 +40,18 @@ with col2:
 with col3:
     st.metric("🏆 Top Market", top_market)
 
-st.info(
-    "💰 Global startup funding exceeds $625B. "
-    "🏆 Biotechnology leads all markets in total funding. "
-    "📈 Average funding per startup is $14M."
-)
+st.markdown("""
+    <div style="
+        background-color:#DCFCE7;
+        padding:15px;
+        border-radius:12px;
+        border-left:6px solid #10B981;
+        color:#166534;
+        font-weight:500;">
+    💰 Global startup funding exceeds $625B. 
+    🏆 Biotechnology leads all markets in total funding. 
+    📈 Average funding per startup is $14M.
+""", unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -54,7 +61,8 @@ fig = px.line(
     funding_df,
     x="founded_year",
     y="total_funding",
-    markers=True
+    markers=True,
+    color_discrete_sequence=["#10B981"]
 )
 fig.update_traces(line_width=3)
 fig.update_layout(
@@ -85,7 +93,7 @@ fig2 = px.bar(
     y="market",
     orientation="h",
     color="total_funding",
-    color_continuous_scale="Blues"
+    color_continuous_scale="Greens"
 )
 
 fig2.update_layout(
@@ -111,11 +119,22 @@ with col1:
         .head(10)
     )
 
-    fig1 = px.bar(
-        top_markets,
-        x="total_funding",
-        y="market",
-        orientation="h"
+    fig1 = px.treemap(
+    top_markets,
+    path=["market"],
+    values="total_funding",
+    color="total_funding",
+    color_continuous_scale=[
+    "#353A33",
+    "#5E785A",
+    "#64886C",
+    "#7DD4A7",
+    "#AFF6D1"
+    ]
+)
+
+    fig1.update_layout(
+        height=450
     )
 
     st.plotly_chart(
@@ -136,10 +155,26 @@ with col2:
         top_countries,
         x="total_funding",
         y="country_code",
-        orientation="h"
+        orientation="h",
+        color_discrete_sequence=["#086E2D"]
     )
 
     st.plotly_chart(
         fig2,
         use_container_width=True
     )
+
+st.markdown("---")
+st.subheader("📌 Funding Insights")
+
+st.success(
+    f"🏆 {top_market} attracted the highest funding."
+)
+
+st.info(
+    f"💰 Total startup funding reached ${total_funding/1e9:.1f}B."
+)
+
+st.info(
+    f"📈 Average funding per startup is ${avg_funding/1e6:.1f}M."
+)

@@ -50,7 +50,8 @@ with col1:
         top_markets,
         x="startups",
         y="market",
-        orientation="h"
+        orientation="h",
+        color_discrete_sequence=["#60A5FA"]
     )
 
     st.plotly_chart(fig1, use_container_width=True)
@@ -69,27 +70,50 @@ with col2:
         top_funded,
         x="total_funding",
         y="market",
-        orientation="h"
+        orientation="h",
+        color_discrete_sequence=["#60A5FA"]
     )
 
     st.plotly_chart(fig2, use_container_width=True)
 
 st.markdown("---")
 
-st.subheader("Top Markets by Average Funding")
+st.subheader("🏭 Market Funding Distribution")
 
 top_avg = (
     market_df
-    .sort_values("avg_funding", ascending=False)
+    .sort_values("total_funding", ascending=False)
     .head(15)
 )
 
-fig3 = px.bar(
+fig3 = px.treemap(
     top_avg,
-    x="avg_funding",
-    y="market",
-    orientation="h"
+    path=["market"],
+    values="total_funding",
+    color="total_funding",
+    color_continuous_scale=[
+        "#DBEAFE",  # light blue
+        "#60A5FA",  # blue
+        "#3B82F6",  # strong blue
+        "#8B5CF6",  # purple
+        "#7C3AED"   # deep purple
+    ]
 )
 
-st.plotly_chart(fig3, use_container_width=True)
+fig3.update_layout(
+    height=500
+)
+
+st.plotly_chart(
+    fig3,
+    use_container_width=True
+)
+
+st.markdown("---")
+st.subheader("📌 Market Insights")
+
+st.info("🏭 Software remains the largest startup market by startup count.")
+st.info("💰 Biotechnology attracts the highest total funding.")
+st.info("📈 Funding is concentrated among a few high-growth sectors.")
+
 

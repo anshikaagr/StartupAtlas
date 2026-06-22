@@ -47,7 +47,8 @@ fig = px.line(
     funding_df,
     x="founded_year",
     y="total_funding",
-    markers=True
+    markers=True,
+    color_discrete_sequence=["#06B6D4"]
 )
 
 st.plotly_chart(
@@ -62,10 +63,18 @@ st.subheader("Funding Distribution by Year")
 fig2 = px.bar(
     funding_df,
     x="founded_year",
-    y="total_funding"
+    y="total_funding",
+    color_discrete_sequence=["#06B6D4"]
 )
 
 st.plotly_chart(
     fig2,
     use_container_width=True
 )
+
+st.markdown("---")
+st.subheader("📌 Time Trend Insights")
+
+st.info(f"🏆 {int(peak_year)} recorded the highest startup funding.")
+st.info("📈 Funding generally increased over the years.")
+st.info("🚀 Startup ecosystems expanded rapidly in later years.")
