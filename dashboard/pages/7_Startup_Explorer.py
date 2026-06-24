@@ -11,7 +11,7 @@ country_df = pd.read_csv("data/processed/country_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.3rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -23,7 +23,7 @@ country_options = sorted(
     country_df["country_code"].unique()
 )
 
-default_index = 0
+default_index = country_options.index("USA")
 
 selected_filter = st.session_state.get(
     "country_filter",
@@ -98,7 +98,7 @@ st.success(
 
 
 st.markdown("---")
-st.subheader("🌍 Top 10 Countries by DNA Score")
+st.subheader("🌍 Global Top 10 Countries by DNA Score")
 top10 = (country_df.sort_values("dna_score", ascending=False).head(10))
 fig = px.bar(
     top10,

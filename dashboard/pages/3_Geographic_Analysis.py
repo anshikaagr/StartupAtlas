@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("🌍 Geographic Analysis")
 st.write("Explore startup distribution and funding across countries.")
 country_df = pd.read_csv("data/processed/country_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.3rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -81,39 +82,6 @@ with col2:
     )
 
 st.markdown("---")
-
-st.subheader("🚀 Top 15 Countries by Startups")
-
-top15 = (
-    country_df
-    .sort_values("startups", ascending=False)
-    .head(15)
-)
-
-fig3 = px.bar(
-    top15,
-    x="startups",
-    y="country_code",
-    orientation="h",
-    color="startups",
-    color_continuous_scale=[
-        "#8B5CF6",
-        "#6940CA",
-        "#421A9F"
-    ]
-)
-
-fig3.update_layout(
-    height=500,
-    yaxis_title="Country",
-    xaxis_title="Number of Startups",
-    yaxis=dict(categoryorder="total ascending")
-)
-
-st.plotly_chart(fig3, use_container_width=True)
-
-st.markdown("---")
-
 region_map = {
     # North America
     "USA": "North America",
@@ -196,10 +164,14 @@ fig4.update_layout(
 )
 
 st.plotly_chart(fig4, use_container_width=True)
+st.caption(
+    "Countries are grouped into geographic regions for ecosystem comparison."
+)
 
 st.markdown("---")
+
 st.subheader("📌 Geographic Insights")
 
 st.info("🇺🇸 USA dominates both startup count and total funding.")
 st.info("🌍 Startup activity is concentrated in North America, Europe, and Asia.")
-st.info("💰 Funding distribution varies significantly across countries.")
+st.info("  North America contains the largest startup ecosystem by startup count.")

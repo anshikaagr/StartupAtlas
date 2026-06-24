@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("🏭 Market Analysis")
 st.write("Explore startup activity and funding across markets.")
 
@@ -9,7 +10,7 @@ market_df = pd.read_csv("data/processed/market_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;

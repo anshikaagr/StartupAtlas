@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("⚖️ Compare Countries")
 st.write("Compare startup ecosystems across countries.")
 
@@ -10,7 +11,7 @@ country_df = pd.read_csv("data/processed/country_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -211,5 +212,5 @@ funding_winner = country1 if data1["total_funding"].iloc[0] > data2["total_fundi
 st.markdown("---")
 st.subheader("📌 Key Insights")
 st.info(f"🚀 {startup_winner} has more startups.")
-st.info(f"💰 {funding_winner} attracts more funding.")
+st.info(f"💰 {funding_winner} received higher total startup funding.")
 st.success(f"🧬 {winner} has the stronger Startup DNA Score.")

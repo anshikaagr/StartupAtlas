@@ -1,24 +1,39 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="StartupAtlas",
-    page_icon="🚀",
-    layout="wide"
-)
-st.sidebar.markdown("""
-<div style="
-padding:5px;
-border-radius:12px;
-background:#1F2937;
-text-align:center;
-margin-bottom:10px;">
-<h2>🚀 StartupAtlas</h2>
-<p>Startup Intelligence Platform</p>
-</div>
+st.markdown("""
+<style>
+.block-container {
+    padding-top: 2.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    max-width: 100% !important;
+}
+</style>
 """, unsafe_allow_html=True)
+st.markdown("""
+# 🚀 StartupAtlas
 
-st.title("🚀 StartupAtlas")
-st.caption("Data-driven insights into the global startup ecosystem.")
+Welcome to StartupAtlas.
+
+Use the navigation menu on the left to explore:
+
+- 🌍 Geographic Analysis
+- 💰 Funding Analysis
+- 🏭 Market Analysis
+- 📈 Time Trends
+- 🧬 Startup DNA Score
+- 🔍 Startup Explorer
+- ⚖️ Compare Countries
+
+Apply global filters from the sidebar to customize analysis.
+""")
+
+st.info(
+    "Dataset contains startup funding records from Crunchbase and covers startup activity primarily up to 2014."
+)
+st.warning(
+    "📅 Note: Later years may contain fewer records in the dataset. Apparent declines after peak years can be influenced by dataset coverage rather than actual startup activity."
+)
 
 if "country_filter" not in st.session_state:
     st.session_state["country_filter"] = "All Countries"
@@ -26,17 +41,6 @@ if "country_filter" not in st.session_state:
 if "market_filter" not in st.session_state:
     st.session_state["market_filter"] = "All Markets"
 
-st.markdown("""
-<style>
-[data-testid="stSidebar"] {
-    background: #111827;
-}
-
-[data-testid="stSidebar"] * {
-    color: white;
-}
-</style>
-""", unsafe_allow_html=True)
 
 import pandas as pd
 

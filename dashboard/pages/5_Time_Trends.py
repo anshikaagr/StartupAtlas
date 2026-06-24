@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("📈 Time Trends Analysis")
 st.write("Explore startup growth and funding trends over time.")
 
@@ -9,7 +10,7 @@ funding_df = pd.read_csv("data/processed/funding_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -55,23 +56,10 @@ st.plotly_chart(
     fig,
     use_container_width=True
 )
-
-st.markdown("---")
-
-st.subheader("Funding Distribution by Year")
-
-fig2 = px.bar(
-    funding_df,
-    x="founded_year",
-    y="total_funding",
-    color_discrete_sequence=["#06B6D4"]
+st.caption(
+    "📌 Note: This analysis is based on historical startup data up to approximately 2007. Recent startup ecosystem trends are not included."
+    "  Trends in later years may be influenced by incomplete data coverage and should be interpreted with caution."
 )
-
-st.plotly_chart(
-    fig2,
-    use_container_width=True
-)
-
 st.markdown("---")
 st.subheader("📌 Time Trend Insights")
 

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("💰 Funding Analysis")
 st.write("Analyze startup funding patterns and investment trends.")
 
@@ -12,7 +13,7 @@ funding_df = pd.read_csv("data/processed/funding_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -76,7 +77,7 @@ st.plotly_chart(
     fig,
     use_container_width=True
 )
-
+st.caption("Data reflects startups available in the Crunchbase investment dataset.")
 st.divider()
 
 st.subheader("🏆 Top 10 Markets by Funding")
@@ -176,5 +177,5 @@ st.info(
 )
 
 st.info(
-    f"📈 Average funding per startup is ${avg_funding/1e6:.1f}M."
+    f"📈 Average funding per funded startup is ${avg_funding/1e6:.1f}M."
 )

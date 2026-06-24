@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+
 st.title("🧬 Startup DNA Score")
 st.write("Measure startup ecosystem strength through a custom scoring model.")
 country_df = pd.read_csv("data/processed/country_summary.csv")
@@ -9,7 +10,7 @@ country_df = pd.read_csv("data/processed/country_summary.csv")
 st.markdown("""
 <style>
 .block-container {
-    padding-top: 2rem;
+    padding-top: 2.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     max-width: 100% !important;
@@ -41,6 +42,9 @@ with col2:
 with col3:
     st.metric("🌍 Top Country", top_country)
 
+st.caption(
+    "DNA Score is a composite metric combining startup count, total funding, and average funding per startup."
+)
 st.markdown("---")
 
 st.subheader("DNA Score Distribution")
