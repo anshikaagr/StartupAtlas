@@ -6,7 +6,7 @@ Built with Python, Pandas, Plotly, and Streamlit, the project transforms raw sta
 
 ## 🌐 Live Demo
 
-https://your-app-name.streamlit.app
+https://startupatlas.streamlit.app
 ---
 
 ## 📊 Dataset Overview
