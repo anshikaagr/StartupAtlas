@@ -4,6 +4,9 @@ StartupAtlas is an interactive data analytics dashboard that explores global sta
 
 Built with Python, Pandas, Plotly, and Streamlit, the project transforms raw startup data into actionable insights through interactive visualizations and custom scoring models.
 
+## 🌐 Live Demo
+
+https://your-app-name.streamlit.app
 ---
 
 ## 📊 Dataset Overview
