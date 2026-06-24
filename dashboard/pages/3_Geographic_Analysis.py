@@ -53,7 +53,7 @@ with col1:
         x="startups",
         y="country_code",
         orientation="h",
-        color_discrete_sequence=["#8B5CF6"])
+        color_discrete_sequence=["#C368F8"])
 
     st.plotly_chart(fig,use_container_width=True)
 
@@ -72,7 +72,7 @@ with col2:
         x="total_funding",
         y="country_code",
         orientation="h",
-        color_discrete_sequence=["#8B5CF6"]
+        color_discrete_sequence=["#5C76F6"]
     )
 
     st.plotly_chart(

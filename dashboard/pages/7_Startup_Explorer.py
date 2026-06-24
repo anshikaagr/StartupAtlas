@@ -92,9 +92,8 @@ country_rank = (
 
 rank = int(country_rank[country_df["country_code"] == selected_country].iloc[0])
 
-st.subheader("🏆 Country Ranking")
-st.write(
-    f"**{selected_country}** ranks **#{rank}** out of **{len(country_df)} countries** based on Startup DNA Score."
+st.success(
+    f"🏆 {selected_country} ranks #{rank} out of {len(country_df)} countries based on Startup DNA Score."
 )
 
 
@@ -103,13 +102,42 @@ st.subheader("🌍 Top 10 Countries by DNA Score")
 top10 = (country_df.sort_values("dna_score", ascending=False).head(10))
 fig = px.bar(
     top10,
-    x="country_code",
-    y="dna_score",
-    title="Top 10 Countries by DNA Score",
-    orientation="h"
+    y="country_code",
+    x="dna_score",
+    orientation="h",
+    color="dna_score",
+    color_continuous_scale=[
+        "#FBCFE8",
+        "#EC4899",
+        "#BE185D"
+    ]
+)
+
+fig.update_traces(
+    width=0.37
+)
+
+fig.update_layout(
+    coloraxis_showscale=False,
+    height=450
 )
 
 st.plotly_chart(
     fig,
     use_container_width=True
+)
+
+st.markdown("---")
+st.subheader("📌 Country Insights")
+
+st.info(
+    f"🚀 {selected_country} hosts {int(country_data['startups'].iloc[0]):,} startups."
+)
+
+st.info(
+    f"💰 Total funding reached ${country_data['total_funding'].iloc[0]/1e9:.2f}B."
+)
+
+st.info(
+    f"🧬 Startup DNA Score: {country_data['dna_score'].iloc[0]:.1f}"
 )

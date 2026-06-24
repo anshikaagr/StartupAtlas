@@ -124,20 +124,20 @@ st.subheader("📊 Country Comparison")
 compare_df = pd.DataFrame({
     "Metric": [
         "Startups",
-        "Total Funding",
+        "Funding",
         "Avg Funding",
         "DNA Score"
     ],
     country1: [
-        data1["startups"].iloc[0],
-        data1["total_funding"].iloc[0],
-        data1["avg_funding"].iloc[0],
+        data1["startups"].iloc[0] / country_df["startups"].max() * 100,
+        data1["total_funding"].iloc[0] / country_df["total_funding"].max() * 100,
+        data1["avg_funding"].iloc[0] / country_df["avg_funding"].max() * 100,
         data1["dna_score"].iloc[0]
     ],
     country2: [
-        data2["startups"].iloc[0],
-        data2["total_funding"].iloc[0],
-        data2["avg_funding"].iloc[0],
+        data2["startups"].iloc[0] / country_df["startups"].max() * 100,
+        data2["total_funding"].iloc[0] / country_df["total_funding"].max() * 100,
+        data2["avg_funding"].iloc[0] / country_df["avg_funding"].max() * 100,
         data2["dna_score"].iloc[0]
     ]
 })
@@ -145,15 +145,27 @@ compare_df = pd.DataFrame({
 compare_long = compare_df.melt(
     id_vars="Metric",
     var_name="Country",
-    value_name="Value"
+    value_name="Score"
 )
 
 fig = px.bar(
     compare_long,
-    x="Metric",
-    y="Value",
+    y="Metric",
+    x="Score",
     color="Country",
-    barmode="group"
+    barmode="group",
+    orientation="h",
+    color_discrete_sequence=[
+        "#8B5CF6",
+        "#3B82F6"
+    ]
+)
+
+fig.update_layout(
+    height=450,
+    xaxis_title="Normalized Score (0-100)",
+    yaxis_title="",
+    legend_title=""
 )
 
 st.plotly_chart(
@@ -172,18 +184,20 @@ dna_df = pd.DataFrame({
     ]
 })
 
-fig2 = px.bar(
-    dna_df,
-    x="Country",
-    y="DNA Score",
-    text="DNA Score"
+st.progress(float(data1["dna_score"].iloc[0]) / 100)
+st.write(f"{country1}: {data1['dna_score'].iloc[0]:.1f}")
+
+st.progress(float(data2["dna_score"].iloc[0]) / 100)
+st.write(f"{country2}: {data2['dna_score'].iloc[0]:.1f}")
+
+dna_diff = abs(
+    data1["dna_score"].iloc[0]- data2["dna_score"].iloc[0]
 )
 
-st.plotly_chart(
-    fig2,
-    use_container_width=True
+st.metric(
+    "DNA Score Difference",
+    f"{dna_diff:.1f}"
 )
-
 
 winner = (
     country1
@@ -199,4 +213,3 @@ st.subheader("📌 Key Insights")
 st.info(f"🚀 {startup_winner} has more startups.")
 st.info(f"💰 {funding_winner} attracts more funding.")
 st.success(f"🧬 {winner} has the stronger Startup DNA Score.")
-

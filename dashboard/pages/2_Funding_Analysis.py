@@ -156,7 +156,7 @@ with col2:
         x="total_funding",
         y="country_code",
         orientation="h",
-        color_discrete_sequence=["#086E2D"]
+        color_discrete_sequence=["#343433"]
     )
 
     st.plotly_chart(

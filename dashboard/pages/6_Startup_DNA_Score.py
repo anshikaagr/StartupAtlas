@@ -48,7 +48,8 @@ st.subheader("DNA Score Distribution")
 fig = px.histogram(
     country_df,
     x="dna_score",
-    nbins=20
+    nbins=20,
+    color_discrete_sequence=["#487FEC"]
 )
 
 st.plotly_chart(fig, use_container_width=True)
@@ -82,7 +83,8 @@ st.subheader("Top DNA Score Countries")
 fig2 = px.bar(
     top_dna,
     x="country_code",
-    y="dna_score"
+    y="dna_score",
+    color_discrete_sequence=["#487FEC"]
 )
 
 st.plotly_chart(
@@ -90,3 +92,9 @@ st.plotly_chart(
     use_container_width=True
 )
 
+st.markdown("---")
+st.subheader("📌 DNA Insights")
+
+st.info(f"🏆 {top_country} achieved the highest Startup DNA Score.")
+st.info("🧬 DNA Score combines startup count, total funding, and average funding.")
+st.info("📈 Strong ecosystems balance scale, funding strength, and startup quality.")
