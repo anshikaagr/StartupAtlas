@@ -118,10 +118,6 @@ StartupAtlas/
 │       ├── 07_startup_dna_score.ipynb
 │       └── 08_dashboard_data_preparation.ipynb
 │
-├── outputs/
-│
-├── sql/
-│
 ├── requirements.txt
 ├── README.md
 └── .gitignore
